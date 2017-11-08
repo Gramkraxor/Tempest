@@ -59,7 +59,7 @@ var konamiProgress = 0;
 function konami() {
 	$("iframe").remove();
 	$("canvas").remove();
-	var ytUrl = "http://www.youtube.com/embed/" + "QH2-TGUlwu4" + "?autoplay=1&disablekb=1&rel=0&controls=0&start=" + 4;
+	var ytUrl = "https://www.youtube.com/embed/" + "QH2-TGUlwu4" + "?autoplay=1&disablekb=1&rel=0&controls=0&start=" + 4;
 	$("#page").append("<iframe style=\"height:" + height + "px;width:" + width + "px;\" src=\"" + ytUrl + "\"></iframe>");
 }
 
@@ -71,7 +71,7 @@ function konami() {
 function setup() {
 	createCanvas(1024, 640);
 	
-	$("#copyright").append(" | " + authorList);
+	$("#copyright").append(" | " + /*authorList*/ "Isaac Zaman & Owen Graham");
 	$("#alt div").html("Game resources unavailable.<br/>Is this page online?");
 	$("canvas").appendTo("#page");
 	$("#footer").appendTo("#page");
