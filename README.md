@@ -1,2 +1,2 @@
-# Tempest
-Great World Texts Project
+# Tempest One
+Great World Texts project, revamped.
