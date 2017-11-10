@@ -49,7 +49,8 @@ function Level(l) { // Letter L, level ID
 		
 		// Create the animation sprites
 		charBg = new Sprite(0, 0, 1024, 640, imgLvl0, S_A113);
-		charTitle = new Sprite(0, 0, 480, 360, imgTitle, S_A113).gotoCenter(width / 2, 240);
+		//charTitle = new Sprite(0, 0, 480, 360, imgTitle, S_A113).gotoCenter(width / 2, 240);
+		charTitle = new Sprite(0, 0, 640, 360, imgTitle, S_A113).gotoCenter(width / 2, 240);
 		
 		this.draw = function() {
 			

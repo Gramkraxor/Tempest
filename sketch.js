@@ -72,7 +72,7 @@ function setup() {
 	createCanvas(1024, 640);
 	
 	$("#copyright").append(" | " + /*authorList*/ "Isaac Zaman & Owen Graham");
-	$("#alt div").html("Game resources unavailable.<br/>Is this page online?");
+	$("#alt div").html("Loading game...");
 	$("canvas").appendTo("#page");
 	$("#footer").appendTo("#page");
 	//$("#alt").css({"height": (height + "px"), "width": (width + "px")});
