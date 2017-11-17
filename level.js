@@ -172,7 +172,7 @@ function Level(l) { // Letter L, level ID
 				var amount = getRandomInt(1, 4); // How many sprites to load?
 				var poss = []; // Positions
 				/*for (var i = 0; i < amount; i++) {
-					var v = getRandomInt2(256, width - 256 - 64, 64);
+					var v = getRandomInt(256, width - 256 - 64, 64);
 					var b = false;
 					for (var j = 0; j < amount; j++) {
 					}
@@ -182,8 +182,8 @@ function Level(l) { // Letter L, level ID
 				}*/
 				
 				// Generate sprites at 32px intervals above the canvas, between x=256 and x=768
-				charList.push(new Sprite(getRandomInt2(256, width - 256, 64), -64, 64, 64, imgBarrel, S_BARREL));
-				charList.push(new Sprite(getRandomInt2(256, width - 256, 64), -64, 64, 64, imgCrate, S_CRATE));
+				charList.push(new Sprite(getRandomInt(256, width - 256, 64), -64, 64, 64, imgBarrel, S_BARREL));
+				charList.push(new Sprite(getRandomInt(256, width - 256, 64), -64, 64, 64, imgCrate, S_CRATE));
 				
 				for (var i = charList.length - 1; i >= 0; i--) {
 					var ch = charList[i];
@@ -256,7 +256,6 @@ function Level(l) { // Letter L, level ID
 		}
 		
 	} else if (l == 2) { // Level 2
-		
 		charList = [];
 		
 		charMain.img = imgProsB;
@@ -274,7 +273,7 @@ function Level(l) { // Letter L, level ID
 				var amount = getRandomInt(1, 4); // How many sprites to load?
 				var poss = []; // Positions
 				/*for (var i = 0; i < amount; i++) {
-					var v = getRandomInt2(256, width - 256 - 64, 64);
+					var v = getRandomInt(256, width - 256 - 64, 64);
 					var b = false;
 					for (var j = 0; j < amount; j++) {
 					}
@@ -284,8 +283,8 @@ function Level(l) { // Letter L, level ID
 				}*/
 				
 				// Generate sprites at 32px intervals above the canvas, between x=256 and x=768
-				charList.push(new Sprite(getRandomInt2(256, width - 256, 64), -64, 64, 64, imgCoconut, S_COCONUT));
-				charList.push(new Sprite(getRandomInt2(256, width - 256, 64), -64, 64, 64, imgRock, S_ROCK));
+				charList.push(new Sprite(getRandomInt(256, width - 256, 64), -64, 64, 64, imgCoconut, S_COCONUT));
+				charList.push(new Sprite(getRandomInt(256, width - 256, 64), -64, 64, 64, imgRock, S_ROCK));
 				
 				for (var i = charList.length - 1; i >= 0; i--) {
 					var ch = charList[i];

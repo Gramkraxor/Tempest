@@ -34,18 +34,35 @@ var lvlSpeed = 0;    // Speed of level progression
 var lvlProgress = 0; // Distance travelled
 var blowback = 0;    // Barrel blowback
 
+// Is it undefined?
+function und(v) {
+	return typeof v == "undefined";
+}
+
 // Randomizers //
 
-function getRandomInt(min, max) {
+/*function getRandomInt(min, max) {
 	min = Math.ceil(min);
 	max = Math.floor(max);
 	return Math.floor(Math.random() * (max - min)) + min;
 }
 
-function getRandomInt2(min, max, x) { // Random int with interval
+function getRandomInt2(min, max, x) { // x is the interval
 	min = Math.ceil(min / x);
 	max = Math.floor(max / x);
 	return (Math.floor(Math.random() * (max - min)) + min) * x;
+}*/
+
+function getRandomInt(min, max, x) { // x is the interval
+	if (!und(x)) {
+		min = Math.ceil(min / x);
+		max = Math.floor(max / x);
+		return (Math.floor(Math.random() * (max - min)) + min) * x;
+	} else {
+		min = Math.ceil(min);
+		max = Math.floor(max);
+		return Math.floor(Math.random() * (max - min)) + min;
+	}
 }
 
 function getRandomBoolean() {
@@ -57,10 +74,24 @@ function getRandomBoolean() {
 var konamiCode;
 var konamiProgress = 0;
 function konami() {
+	/*
 	$("iframe").remove();
 	$("canvas").remove();
 	var ytUrl = "https://www.youtube.com/embed/" + "QH2-TGUlwu4" + "?autoplay=1&disablekb=1&rel=0&controls=0&start=" + 4;
-	$("#page").append("<iframe style=\"height:" + height + "px;width:" + width + "px;\" src=\"" + ytUrl + "\"></iframe>");
+	//$("#page").append("<iframe style=\"height:" + height + "px;width:" + width + "px;\" src=\"" + ytUrl + "\"></iframe>");
+	$("#page").append($("<iframe/>")
+		.css("height", height + "px")
+		.css("width", width + "px")
+		.attr("src", ytUrl)
+	);
+	*/
+	$("#page").append($("<audio/>")
+		.attr("preload", "auto")
+		.attr("src", "assets/rickroll.mp3")
+		.attr("autoplay", true)
+		.attr("id", "rickroll")
+	);
+	$("#rickroll")[0].currentTime = 43;
 }
 
 /**
@@ -81,19 +112,19 @@ function setup() {
 	konamiCode = [UP_ARROW, UP_ARROW, DOWN_ARROW, DOWN_ARROW, LEFT_ARROW, RIGHT_ARROW, LEFT_ARROW, RIGHT_ARROW, 66, 65];
 	
 	// Load a couple graphics
-	imgTitle   = loadImage("img/title.png");
-	imgProsF   = loadImage("img/char-pros-f.png");
-	imgProsB   = loadImage("img/char-pros-b.png");
-	imgFerdF   = loadImage("img/char-ferd-f.png");
-	imgFerdB   = loadImage("img/char-ferd-b.png");
-	imgBarrel  = loadImage("img/char-barrel.png");
-	imgCrate   = loadImage("img/char-crate.png");
-	imgCoconut = loadImage("img/char-coconut.png");
-	imgRock    = loadImage("img/char-rock.png");
-	imgMap     = loadImage("img/bg-beach.png");
-	imgLvl0    = loadImage("img/bg-lvl0.png");
-	imgLvl1    = loadImage("img/bg-lvl1.png");
-	imgLvl2    = loadImage("img/bg-lvl2.png");
+	imgTitle   = loadImage("assets/title.png");
+	imgProsF   = loadImage("assets/char-pros-f.png");
+	imgProsB   = loadImage("assets/char-pros-b.png");
+	imgFerdF   = loadImage("assets/char-ferd-f.png");
+	imgFerdB   = loadImage("assets/char-ferd-b.png");
+	imgBarrel  = loadImage("assets/char-barrel.png");
+	imgCrate   = loadImage("assets/char-crate.png");
+	imgCoconut = loadImage("assets/char-coconut.png");
+	imgRock    = loadImage("assets/char-rock.png");
+	imgMap     = loadImage("assets/bg-beach.png");
+	imgLvl0    = loadImage("assets/bg-lvl0.png");
+	imgLvl1    = loadImage("assets/bg-lvl1.png");
+	imgLvl2    = loadImage("assets/bg-lvl2.png");
 	
 	// Main character
 	charMain = new Sprite(0, 0, 48, 64, imgProsB, S_PLAYER);
