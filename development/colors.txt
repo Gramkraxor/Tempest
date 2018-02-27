@@ -1,0 +1,5 @@
+#FFD800  Lightning Yellow
+#001C34  Ocean Depths Blue
+#080808  Stormy Gray
+#C0C0C0  Starlight Gray
+#808080  Moonlight Gray
