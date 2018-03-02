@@ -2,3 +2,4 @@ User-agent: *
 Disallow: /assets
 Disallow: /lib
 Disallow: /src
+Disallow: /gwt/img

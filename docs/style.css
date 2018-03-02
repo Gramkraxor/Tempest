@@ -6,15 +6,15 @@ body {
 	margin: 0;
 	/*/font-family: "Ubuntu Mono", "Consolas", "Courier New", Monospace;/*/
 	font-family: "Ubuntu", "Trebuchet MS", "Arial", Sans-Serif;/**/
-	
+
 	/*background: #081018 url("assets/bg.png") no-repeat fixed center top;*/
 	/*background-size: calc(100vh * 16 / 9) 100vh;*/
 	/*background-size: 192vh 108vh;*/
 	background-size: cover;
-	
+
 	/*background: #000000;*/
 	background: #001C34;
-	
+
 	text-align: center;
 }
 
@@ -31,14 +31,14 @@ div, canvas, iframe {
 	margin: auto;
 	/*margin-top: 12px;*/
 	box-sizing: content-box;
-	
+
 	/*border: 1px solid rgba(63, 63, 63, 0.75);
 	background: rgba(255, 255, 255, 0.75);
 	border-radius: 24px;*/
 	border-radius: 0 0 24px 24px;
-	
+
 	background: #080808;
-	
+
 	padding: 24px;
 	padding-bottom: 0;
 	position: relative;
@@ -100,8 +100,20 @@ canvas, iframe {
 	color: #808080;
 }
 
-#c {
+#original {
+	font-size: 14px;
+	text-decoration: underline;
+	font-style: italic;
+	color: #C0C0C0;
+}
+
+#original:active {
+	color: #FFD800;
+}
+
+#dev {
 	font-family: "Ubuntu Mono", "Consolas", monospace;
+	color: #FFFFFF;
 }
 
 ::selection {

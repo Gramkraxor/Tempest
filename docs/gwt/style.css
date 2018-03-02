@@ -1,0 +1,125 @@
+body {
+	padding: 0;
+	margin: 0;
+	/*/font-family: "Ubuntu Mono", "Consolas", "Courier New", Monospace;/*/
+	font-family: "Ubuntu", "Trebuchet MS", "Arial", Sans-Serif;/**/
+	background: #081018 url("img/bg.png") no-repeat fixed center top;
+	/*background-size: calc(100vh * 16 / 9) 100vh;*/
+	/*background-size: 192vh 108vh;*/
+	background-size: cover;
+	text-align: center;
+}
+
+div, canvas, iframe {
+	margin: auto;
+	display: block;
+}
+
+#page {
+	color: #444;
+	width: 1024px;
+	height: 100%;
+	margin: auto;
+	margin-top: 12px;
+	box-sizing: content-box;
+	border: 1px solid rgba(63, 63, 63, 0.75);
+	background: rgba(255, 255, 255, 0.75);
+	border-radius: 24px;
+	padding: 24px;
+	padding-bottom: 0;
+	position: relative;
+}
+
+#page * {
+	box-sizing: border-box;
+}
+
+canvas, iframe {
+	border: inherit;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 24px;
+	left: 24px;
+}
+
+#alt {
+	color: #000;
+	font-weight: 700;
+	height: 640px;
+	width: 100%;
+	line-height: 24px;
+}
+
+#alt div {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	padding: 12px;
+}
+
+/*#title {
+	font-size: 36px;
+	font-weight: 300;
+	margin-top: 24px;
+	text-transform: uppercase;
+}*/
+
+#footer {
+	font-weight: 700;
+	color: #000;
+	line-height: 24px;
+	margin: 12px;
+	/*margin-bottom: 24px;*/
+}
+
+#copyright {
+	font-size: 12px;
+}
+
+#c {
+	font-family: "Ubuntu Mono", "Consolas", monospace;
+}
+
+::selection {
+	color: #000;
+	background: #fff;
+}
+
+::-webkit-scrollbar {
+	width: 8px;
+	height: 8px;
+	background-color: #000;
+}
+
+::-webkit-scrollbar-thumb, ::-webkit-scrollbar-corner {
+	background-color: #bbb;
+}
+
+/* Ubuntu Regular Latin */
+@font-face {
+  font-family: "Ubuntu";
+  font-style: normal;
+  font-weight: 400;
+  src: local("Ubuntu"), url(https://fonts.gstatic.com/s/ubuntu/v9/sDGTilo5QRsfWu6Yc11AXg.woff2) format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+
+/* Ubuntu Light Latin */
+@font-face {
+  font-family: "Ubuntu";
+  font-style: normal;
+  font-weight: 300;
+  src: local("Ubuntu Light"), local("Ubuntu-Light"), url(https://fonts.gstatic.com/s/ubuntu/v9/_aijTyevf54tkVDLy-dlnFtXRa8TVwTICgirnJhmVJw.woff2) format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+
+/* Ubuntu Mono Latin */
+@font-face {
+  font-family: "Ubuntu Mono";
+  font-style: normal;
+  font-weight: 400;
+  src: local("Ubuntu Mono"), local("UbuntuMono-Regular"), url(https://fonts.gstatic.com/s/ubuntumono/v6/ViZhet7Ak-LRXZMXzuAfkY4P5ICox8Kq3LLUNMylGO4.woff2) format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
