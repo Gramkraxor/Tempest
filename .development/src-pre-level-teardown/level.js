@@ -3,7 +3,7 @@
  * © 2018 Owen Graham
  */
 
-	let next = 0;
+	var next = 0;
 
 	function fadeTo(l) {
 		level = new Level(999);
@@ -23,7 +23,7 @@ function Level(l) { // Letter L, level ID
 	this.draw = function() {
 	}
 
-	this.isOver = function() { // When is the level over?
+	this.ending = function() { // When is the level over?
 		return false;
 	}
 
@@ -37,20 +37,14 @@ function Level(l) { // Letter L, level ID
 	lvlProgress = 0;
 	lvlSpeed = 1;
 
-
-
-
-
-
-
-
+	setMap(2048, 1280, imgMap);
 
 	if (l == 0) { // Title sequence
 
 		// Create the animation sprites
-		let charBg = new Sprite(vect(0, 0), vect(1024, 640), imgLvl0, S_DEFAULT);
+		charBg = new Sprite(vect(0, 0), vect(1024, 640), imgLvl0, S_DEFAULT);
 		//charTitle = new Sprite(vect(0, 0), vect(480, 360), imgTitle, S_DEFAULT).gotoCenter(width / 2, 240);
-		let charTitle = new Sprite(vect(0, 0), vect(640, 360), imgTitle, S_DEFAULT).gotoCenter(width / 2, 240);
+		charTitle = new Sprite(vect(0, 0), vect(640, 360), imgTitle, S_DEFAULT).gotoCenter(width / 2, 240);
 
 		this.draw = function() {
 
@@ -59,13 +53,15 @@ function Level(l) { // Letter L, level ID
 			charTitle.display();
 
 			// Press start 2 p, but blink, but only if bg can render
-			if (timer % 64 < 32 && charBg.img.width > 1) {
-				let ps2p = "PRESS START TO PLAY";
-				let offset = 2;
-				if (!allowPlay) ps2p = "COMING SOON";
+			var font = "Ubuntu Mono";
+			var ps2p = "PRESS START TO PLAY";
+			var offset = 2;
 
+			if (allowPlay == false) ps2p = "COMING SOON";
+
+			if (timer % 64 < 32 && charBg.img.width > 1) {
 				textSize(32);
-				textFont("Ubuntu Mono");
+				textFont(font);
 				textAlign(CENTER);
 				fill(0);
 				text(ps2p, width / 2 + offset, 480 + offset);
@@ -74,7 +70,7 @@ function Level(l) { // Letter L, level ID
 			}
 		}
 
-		this.isOver = function() {
+		this.ending = function() {
 			if (allowPlay == false) {
 				return false;
 			}
@@ -85,20 +81,12 @@ function Level(l) { // Letter L, level ID
 			level = new Level(100);
 		}
 
-
-
-
-
-
-
-
-
 	} else if (l == 100) { // Scrolly text & 1st cutscenes
 
-		let lineHeight = 36;
-		let startHeight = height + 128;
+		var lineHeight = 36;
+		var startHeight = height + 128;
 
-		let scrolly = [
+		var scrolly = [
 			"Two  months  ago,  right",
 			"here, a  small  team  of",
 			"elite  coders   began  a",
@@ -152,13 +140,13 @@ function Level(l) { // Letter L, level ID
 			textStyle(BOLD);
 			textAlign(CENTER);
 			fill(255, 255, 0);
-			for (let i = 0; i < scrolly.length; i++) {
+			for (var i = 0; i < scrolly.length; i++) {
 				text(scrolly[i], width / 2, startHeight + i * lineHeight);
 			}
 			startHeight--;
 		}
 
-		this.isOver = function() {
+		this.ending = function() {
       // FIXME cheat code
 			return startHeight + scrolly.length * lineHeight < 0 || keyIsDown(87);
 		}
@@ -166,14 +154,6 @@ function Level(l) { // Letter L, level ID
 		this.next = function() {
 			level = new Level(1);
 		}
-
-
-
-
-
-
-
-
 
 	} else if (l == 1) { // Level 1
 		charList = [];
@@ -190,12 +170,12 @@ function Level(l) { // Letter L, level ID
 
 		this.draw = function() {
 			if (lvlProgress % 72 < lvlSpeed) {
-				let amount = getRandomInt(1, 4); // How many sprites to load?
-				let poss = []; // Positions
-				/*for (let i = 0; i < amount; i++) {
-					let v = getRandomInt(256, width - 256 - 64, 64);
-					let b = false;
-					for (let j = 0; j < amount; j++) {
+				var amount = getRandomInt(1, 4); // How many sprites to load?
+				var poss = []; // Positions
+				/*for (var i = 0; i < amount; i++) {
+					var v = getRandomInt(256, width - 256 - 64, 64);
+					var b = false;
+					for (var j = 0; j < amount; j++) {
 					}
 					if (b) {
 						poss.push(v);
@@ -206,8 +186,8 @@ function Level(l) { // Letter L, level ID
 				charList.push(new Sprite(vect(getRandomInt(256, width - 256, 64), -64), vect(64, 64), imgBarrel, S_BARREL));
 				charList.push(new Sprite(vect(getRandomInt(256, width - 256, 64), -64), vect(64, 64), imgCrate, S_CRATE));
 
-				for (let i = charList.length - 1; i >= 0; i--) {
-					let ch = charList[i];
+				for (var i = charList.length - 1; i >= 0; i--) {
+					var ch = charList[i];
 					if (ch.pos.y > height * 2) { // Is the sprite too far down?
 						charList.splice(i, 1); // Take it out
 					}
@@ -216,27 +196,19 @@ function Level(l) { // Letter L, level ID
 			//$("#title").html(timer + " % 64 = " + (timer % 64));
 		}
 
-		this.isOver = function() {
+		this.ending = function() {
 			return lvlProgress >= 4096;
 		}
 		this.next = function() {
 			fadeTo(101);
 		}
 
-
-
-
-
-
-
-
-
 	} else if (l == 101) { // Cutscene 1
 
-		let lineHeight = 36;
-		let startHeight = height + 128;
+		var lineHeight = 36;
+		var startHeight = height + 128;
 
-		let scrolly = [
+		var scrolly = [
 			"The nobles of the  boat,",
 			"surprisedly alive, awake",
 			"on   the    island    of",
@@ -270,27 +242,19 @@ function Level(l) { // Letter L, level ID
 			textStyle(BOLD);
 			textAlign(CENTER);
 			fill(255, 255, 0);
-			for (let i = 0; i < scrolly.length; i++) {
+			for (var i = 0; i < scrolly.length; i++) {
 				text(scrolly[i], width / 2, startHeight + i * lineHeight);
 			}
 			startHeight--;
 		}
 
-		this.isOver = function() {
+		this.ending = function() {
 			return startHeight + scrolly.length * lineHeight < 0 || keyIsDown(87);
 		}
 
 		this.next = function() {
 			level = new Level(2);
 		}
-
-
-
-
-
-
-
-
 
 	} else if (l == 2) { // Level 2
 		charList = [];
@@ -307,12 +271,12 @@ function Level(l) { // Letter L, level ID
 
 		this.draw = function() {
 			if (lvlProgress % 72 < lvlSpeed) {
-				let amount = getRandomInt(1, 4); // How many sprites to load?
-				let poss = []; // Positions
-				/*for (let i = 0; i < amount; i++) {
-					let v = getRandomInt(256, width - 256 - 64, 64);
-					let b = false;
-					for (let j = 0; j < amount; j++) {
+				var amount = getRandomInt(1, 4); // How many sprites to load?
+				var poss = []; // Positions
+				/*for (var i = 0; i < amount; i++) {
+					var v = getRandomInt(256, width - 256 - 64, 64);
+					var b = false;
+					for (var j = 0; j < amount; j++) {
 					}
 					if (b) {
 						poss.push(v);
@@ -323,8 +287,8 @@ function Level(l) { // Letter L, level ID
 				charList.push(new Sprite(vect(getRandomInt(256, width - 256, 64), -64), vect(64, 64), imgCoconut, S_COCONUT));
 				charList.push(new Sprite(vect(getRandomInt(256, width - 256, 64), -64), vect(64, 64), imgRock, S_ROCK));
 
-				for (let i = charList.length - 1; i >= 0; i--) {
-					let ch = charList[i];
+				for (var i = charList.length - 1; i >= 0; i--) {
+					var ch = charList[i];
 					if (ch.pos.y > height * 2) { // Is the sprite too far down?
 						charList.splice(i, 1); // Take it out
 					}
@@ -333,27 +297,19 @@ function Level(l) { // Letter L, level ID
 			//$("#title").html(timer + " % 64 = " + (timer % 64));
 		}
 
-		this.isOver = function() {
+		this.ending = function() {
 			return lvlProgress >= 4096;
 		}
 		this.next = function() {
 			fadeTo(102);
 		}
 
-
-
-
-
-
-
-
-
 	} else if (l == 102) { // Cutscene 2
 
-		let lineHeight = 36;
-		let startHeight = height + 128;
+		var lineHeight = 36;
+		var startHeight = height + 128;
 
-		let scrolly = [
+		var scrolly = [
 			"And so, Prospero, having",
 			"made  his peace and  his",
 			"reputation     restored,",
@@ -371,13 +327,13 @@ function Level(l) { // Letter L, level ID
 			textStyle(BOLD);
 			textAlign(CENTER);
 			fill(255, 255, 0);
-			for (let i = 0; i < scrolly.length; i++) {
+			for (var i = 0; i < scrolly.length; i++) {
 				text(scrolly[i], width / 2, startHeight + i * lineHeight);
 			}
 			startHeight--;
 		}
 
-		this.isOver = function() {
+		this.ending = function() {
 			return startHeight + scrolly.length * lineHeight < 0 || keyIsDown(87);
 		}
 
@@ -385,30 +341,22 @@ function Level(l) { // Letter L, level ID
 			level = new Level(99);
 		}
 
-
-
-
-
-
-
-
-
 	} else if (l == 99) { // End
 
-		let lineHeight = 36;
+		var lineHeight = 36;
 
-		let scrolly = [ "Tempest, a game by:" ];
-		for (let i = 0; i < AUTHORS.length; i++) {
-			let a = AUTHORS[i];
+		var scrolly = [ "Tempest, a game by:" ];
+		for (var i = 0; i < AUTHORS.length; i++) {
+			var a = AUTHORS[i];
 			scrolly.push(a.name + ".".repeat(40 - a.name.length - a.role.length) + a.role);
 		}
 		//scrolly.push("Great World Texts 2016-2017");
 
-		let textHeight = 0;
-		for (let i = 0; i < scrolly.length; i++) {
+		var textHeight = 0;
+		for (var i = 0; i < scrolly.length; i++) {
 			textHeight += lineHeight;
 		}
-		let startHeight = (height - textHeight) / 2;
+		var startHeight = (height - textHeight) / 2;
 
 		this.draw = function() {
 			background(0);
@@ -417,25 +365,17 @@ function Level(l) { // Letter L, level ID
 			textStyle(NORMAL);
 			textAlign(CENTER);
 			fill(timer > 255 ? 255 : timer);
-			for (let i = 0; i < scrolly.length; i++) {
+			for (var i = 0; i < scrolly.length; i++) {
 				text(scrolly[i], width / 2, startHeight + i * lineHeight);
 			}
 		}
 
-		this.isOver = function() {
+		this.ending = function() {
 			return false;
 		}
 
 		this.next = function() {
 		}
-
-
-
-
-
-
-
-
 
 	} else if (l == 999) { // Fader
 
@@ -443,7 +383,7 @@ function Level(l) { // Letter L, level ID
 			background(0, 0, 0, Math.ceil(timer / 2));
 		}
 
-		this.isOver = function() {
+		this.ending = function() {
 			return timer >= 64;
 		}
 
@@ -451,50 +391,7 @@ function Level(l) { // Letter L, level ID
 			level = new Level(next);
 		}
 
-
-
-
-
-
-
-
-
 	} else { // Default
 	}
-
-}
-
-
-
-
-
-
-
-
-function RealLevel(l, fnStart, fnEnd, fnDraw, fnIsOver) {
-	this.id = l;
-	if (fnStart ) this.start  = fnStart;
-	if (fnEnd   ) this.next   = fnEnd;
-	if (fnDraw  ) this.draw   = fnDraw;
-	if (fnIsOver) this.isOver = fnIsOver;
-}
-
-RealLevel.prototype.start = function() {
-	charList = [];
-	timer = 0; // this should be more built-in
-	lvlProgress = 0;
-	lvlSpeed = 1;
-}
-
-RealLevel.prototype.next = function() {
-	// go to the next level....
-	// is this function necessary?
-}
-
-RealLevel.prototype.draw = function() {
-
-}
-
-RealLevel.prototype.isOver = function() {
 
 }

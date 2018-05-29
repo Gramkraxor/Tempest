@@ -4,16 +4,16 @@
  */
 
 // Tempest 1 is pre-indev! No playing online!
-let allowPlay = location.hostname != "tempest.gramkraxor.com";
+var allowPlay = location.hostname != "tempest.gramkraxor.com";
 
-let AUTHORS = [
+var AUTHORS = [
 	{ name:"Owen Graham",  role:"Everything" }
 ];
 
 // Put AUTHORS into a string
-let authorList = (function() {
-	let r = "";
-	for (let i = 0; i < AUTHORS.length; i++) {
+var authorList = (function() {
+	var r = "";
+	for (var i = 0; i < AUTHORS.length; i++) {
 		r += AUTHORS[i].name;
 		if (i < AUTHORS.length - 1) r += ", ";
 	}
@@ -21,12 +21,12 @@ let authorList = (function() {
 })();
 
 
-let clunk = false;   // Will the game use 8-bit movement?
-let charList = [];   // Array of map-dependent sprites
-let timer = 0;       // Counts game ticks defined by loops of draw()
-let lvlSpeed = 0;    // Speed of level progression
-let lvlProgress = 0; // Distance travelled
-let blowback = 0;    // Barrel blowback
+var clunk = false;   // Will the game use 8-bit movement?
+var charList = [];   // Array of map-dependent sprites
+var timer = 0;       // Counts game ticks defined by loops of draw()
+var lvlSpeed = 0;    // Speed of level progression
+var lvlProgress = 0; // Distance travelled
+var blowback = 0;    // Barrel blowback
 
 // Is it undefined?
 function und(v) {
@@ -48,13 +48,13 @@ function getRandomBoolean() {
 
 // Konami code functionality //
 
-let konamiCode;
-let konamiProgress = 0;
+var konamiCode;
+var konamiProgress = 0;
 function konami() {
 	/*
 	$("iframe").remove();
 	$("canvas").remove();
-	let ytUrl = "https://www.youtube.com/embed/" + "QH2-TGUlwu4" + "?autoplay=1&disablekb=1&rel=0&controls=0&start=" + 4;
+	var ytUrl = "https://www.youtube.com/embed/" + "QH2-TGUlwu4" + "?autoplay=1&disablekb=1&rel=0&controls=0&start=" + 4;
 	//$("#page").append("<iframe style=\"height:" + height + "px;width:" + width + "px;\" src=\"" + ytUrl + "\"></iframe>");
 	$("#page").append($("<iframe/>")
 		.css("height", height + "px")
@@ -102,6 +102,7 @@ function setup() {
 	imgCrate   = loadPNG("char-crate");
 	imgCoconut = loadPNG("char-coconut");
 	imgRock    = loadPNG("char-rock");
+	imgMap     = loadPNG("bg-beach");
 	imgLvl0    = loadPNG("bg-lvl0");
 	imgLvl1    = loadPNG("bg-lvl1");
 	imgLvl2    = loadPNG("bg-lvl2");
@@ -109,6 +110,9 @@ function setup() {
 	// Main character
 	charMain = new Sprite(vect(0, 0), vect(48, 64), imgProsB, S_PLAYER);
 	charMain.enclose = true;
+
+	// Background
+	setMap(2048, 1280, imgMap);
 
 	level = new Level(0); // Get this party started!
 }
@@ -121,23 +125,23 @@ function draw() {
 	//background(0);
 
 	// FIXME cheat code
-	if (level.isOver() || (keyIsDown(ESCAPE) && level.id < 10)) {
+	if (level.ending() || (keyIsDown(ESCAPE)) {
 		level.next();
 	}
 
-	let l = level.id;
+	var l = level.id;
 
-	for (let i = 0; i < charList.length; i++) {
+	for (var i = 0; i < charList.length; i++) {
 		charList[i].ai();
 	}
 
 	if (l == 0) {
 	} else if (l >= 1 && l < 10) { // Levels 1 & 2: downward scroll
 
-		let speed = 4; // Player speed
+		var speed = 4; // Player speed
 
 		if (clunk) {
-			let clunkiness = 4;
+			var clunkiness = 4;
 			speed *= timer % clunkiness == 0 ? clunkiness : 0;
 		}
 
@@ -158,7 +162,7 @@ function draw() {
 			charMain.move(-speed, 0);
 		}
 
-		lvlSpeed += (timer % 0x200 == 0) ? 1 : 0; // Every 512 ticks, increase the speed
+		lvlSpeed += (timer % 512 == 0) ? 1 : 0; // Every 512 ticks, increase the speed
 		speed = lvlSpeed; // Map/running speed
 
 		// Move the background down as charMain stays in the same place
@@ -175,15 +179,15 @@ function draw() {
 		}
 
 		// Sense if charMain is trapped in a sprite or something
-		let needsBlowforth = charMain.getBottom() > height; // Initialize and sense if below canvas view
-		for (let i = 0; i < charList.length; i++) {
-			let c = charList[i];
+		var needsBlowforth = charMain.getBottom() > height; // Initialize and sense if below canvas view
+		for (var i = 0; i < charList.length; i++) {
+			var c = charList[i];
 
 			// Determine whether charMain is outside of the object
-			let toLeft  = charMain.getRight()  <= c.getLeft();
-			let toRight = charMain.getLeft()   >= c.getRight();
-			let above   = charMain.getBottom() <= c.getTop();
-			let below   = charMain.getTop()    >= c.getBottom();
+			var toLeft  = charMain.getRight()  <= c.getLeft();
+			var toRight = charMain.getLeft()   >= c.getRight();
+			var above   = charMain.getBottom() <= c.getTop();
+			var below   = charMain.getTop()    >= c.getBottom();
 
 			if (!(toLeft || toRight || above || below)) { // If it's inside, it needs help!
 				needsBlowforth = true;
@@ -205,10 +209,10 @@ function draw() {
 
 	} else {
 
-		let speed = 4; // Player speed
+		var speed = 4; // Player speed
 
 		if (clunk) {
-			let clunkiness = 4;
+			var clunkiness = 4;
 			speed *= timer % clunkiness == 0 ? clunkiness : 0;
 		}
 
@@ -247,7 +251,7 @@ function draw() {
 	// Display level sprites, if a game level is on
 	if (level.id > 0 && level.id < 10) {
 		charMap.display();
-		for (let i = 0; i < charList.length; i++ ) {
+		for (var i = 0; i < charList.length; i++ ) {
 			charList[i].display();
 		}
 		charMain.display();
@@ -272,15 +276,15 @@ function draw() {
 	lvlProgress += lvlSpeed;
 	/*$("#dev").html(lvlSpeed + ", " + lvlProgress);
 	$("#dev").append("<br/>");
-	for (let i = 0; i < charList.length; i++) {
+	for (var i = 0; i < charList.length; i++) {
 		$("#dev").append(i + ": " + charList[i].pos.y + ";&nbsp;&nbsp;&nbsp;&nbsp;");
 	}*/
 
 	// Indicate controls in lvl1
 	if (timer % 32 < 16 && timer < 256 && level.id == 1) {
-		let font = "Ubuntu Mono";
-		let wasd = "WASD TO MOVE";
-		let offset = 2;
+		var font = "Ubuntu Mono";
+		var wasd = "WASD TO MOVE";
+		var offset = 2;
 		textSize(32);
 		textFont(font);
 		textAlign(CENTER);
@@ -298,14 +302,14 @@ function setMap(x, y, img) {
 	charMap.move = function(x, y) {
 		if (this.getRight() + x >= width && this.getLeft() + x <= 0) {
 			this.pos.x += x;
-			for (let i = 0; i < charList.length; i++) {
+			for (var i = 0; i < charList.length; i++) {
 				charList[i].pos.x += x;
 			}
 			charMain.pos.x += x;
 		}
 		if (this.getBottom() + y >= height && this.getTop() + y <= 0) {
 			this.pos.y += y;
-			for (let i = 0; i < charList.length; i++) {
+			for (var i = 0; i < charList.length; i++) {
 				charList[i].pos.y += y;
 			}
 			charMain.pos.y += y;

@@ -6,14 +6,14 @@
 // TODO Add vector system
 
 // Sprite IDs (enum: values don't matter, as long as they're unique)
-let S_DEFAULT = 0x1000;
-let S_MAP     = 0x1001;
-let S_PLAYER  = 0x1002;
-let S_NPC     = 0x1003;
-let S_BARREL  = 0x1004;
-let S_CRATE   = 0x1005;
-let S_COCONUT = 0x1006;
-let S_ROCK    = 0x1007;
+var S_DEFAULT = 0x1000;
+var S_MAP     = 0x1001;
+var S_PLAYER  = 0x1002;
+var S_NPC     = 0x1003;
+var S_BARREL  = 0x1004;
+var S_CRATE   = 0x1005;
+var S_COCONUT = 0x1006;
+var S_ROCK    = 0x1007;
 
 /**
  * Sprite constructor
@@ -42,9 +42,9 @@ function Sprite(vPos, vSize, img, type) {
 			this.pos.y += 2;
 
 			// Is charMain to the barrel's left? Right?
-			let toLeft  = this.getRight() <= charMain.getLeft();
-			let toRight = this.getLeft()  >= charMain.getRight();
-			let below   = this.getTop()   >= charMain.getBottom();
+			var toLeft  = this.getRight() <= charMain.getLeft();
+			var toRight = this.getLeft()  >= charMain.getRight();
+			var below   = this.getTop()   >= charMain.getBottom();
 
 			// If charMain is touching from below, give him some blow
 			if (!(toLeft || toRight || below) && charMain.getTop() <= this.getBottom()) {
@@ -111,8 +111,8 @@ Sprite.prototype.move = function(v, y) {
 		x = v;
 	}
 
-	let canMoveX = true;
-	let canMoveY = true;
+	var canMoveX = true;
+	var canMoveY = true;
 
 	// Keep sprite inside of canvas
 	if (this.enclose) {
@@ -131,16 +131,16 @@ Sprite.prototype.move = function(v, y) {
 	}
 
 	// Keep sprites from intersecting
-	for (let i = 0; i < charList.length; i++) {
-		let c = charList[i];
+	for (var i = 0; i < charList.length; i++) {
+		var c = charList[i];
 
 		// Note: This basic method of contact box movement will cause extremely thin objects to skip past each other
 
 		// Determine whether the new position will be outside of the object
-		let toLeft  = this.getRight()  + x <= c.getLeft();
-		let toRight = this.getLeft()   + x >= c.getRight();
-		let above   = this.getBottom() + y <= c.getTop();
-		let below   = this.getTop()    + y >= c.getBottom();
+		var toLeft  = this.getRight()  + x <= c.getLeft();
+		var toRight = this.getLeft()   + x >= c.getRight();
+		var above   = this.getBottom() + y <= c.getTop();
+		var below   = this.getTop()    + y >= c.getBottom();
 
 		if (!(toLeft || toRight || above || below)) {
 			canMoveX = false;
