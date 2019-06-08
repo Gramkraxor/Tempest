@@ -1,6 +1,6 @@
 /*
  * Calculus AB / Great World Texts: The Tempest
- * 
+ *
  * Tempest, a game by:
  * @author Owen Graham
  * @author Isaac Zaman
@@ -70,38 +70,38 @@ function konami() {
  */
 function setup() {
 	createCanvas(1024, 640);
-	
+
 	$("#copyright").append(" | " + authorList);
 	$("#alt div").html("Game resources unavailable.<br/>Is this page online?");
 	$("canvas").appendTo("#page");
 	$("#footer").appendTo("#page");
 	//$("#alt").css({"height": (height + "px"), "width": (width + "px")});
 	//$("canvas").append("<div id=\"alt\">404<br/>Game resources not found</div>");
-	
+
 	konamiCode = [UP_ARROW, UP_ARROW, DOWN_ARROW, DOWN_ARROW, LEFT_ARROW, RIGHT_ARROW, LEFT_ARROW, RIGHT_ARROW, 66, 65];
-	
+
 	// Load a couple graphics
-	imgTitle   = loadImage("img/title.png");
-	imgProsF   = loadImage("img/char-pros-f.png");
-	imgProsB   = loadImage("img/char-pros-b.png");
-	imgFerdF   = loadImage("img/char-ferd-f.png");
-	imgFerdB   = loadImage("img/char-ferd-b.png");
-	imgBarrel  = loadImage("img/char-barrel.png");
-	imgCrate   = loadImage("img/char-crate.png");
-	imgCoconut = loadImage("img/char-coconut.png");
-	imgRock    = loadImage("img/char-rock.png");
-	imgMap     = loadImage("img/bg-beach.png");
-	imgLvl0    = loadImage("img/bg-lvl0.png");
-	imgLvl1    = loadImage("img/bg-lvl1.png");
-	imgLvl2    = loadImage("img/bg-lvl2.png");
-	
+	imgTitle   = loadImage("assets/title.png");
+	imgProsF   = loadImage("assets/char-pros-f.png");
+	imgProsB   = loadImage("assets/char-pros-b.png");
+	imgFerdF   = loadImage("assets/char-ferd-f.png");
+	imgFerdB   = loadImage("assets/char-ferd-b.png");
+	imgBarrel  = loadImage("assets/char-barrel.png");
+	imgCrate   = loadImage("assets/char-crate.png");
+	imgCoconut = loadImage("assets/char-coconut.png");
+	imgRock    = loadImage("assets/char-rock.png");
+	imgMap     = loadImage("assets/bg-beach.png");
+	imgLvl0    = loadImage("assets/bg-lvl0.png");
+	imgLvl1    = loadImage("assets/bg-lvl1.png");
+	imgLvl2    = loadImage("assets/bg-lvl2.png");
+
 	// Main character
 	charMain = new Sprite(0, 0, 48, 64, imgProsB, S_PLAYER);
 	charMain.enclose = true;
-	
+
 	// Background
 	setMap(2048, 1280, imgMap);
-	
+
 	level = new Level(0); // Get this party started!
 }
 
@@ -109,29 +109,29 @@ function setup() {
  * p5 loop
  */
 function draw() {
-	
+
 	//background(0);
-	
+
 	if (level.ending() || (keyIsDown(ESCAPE) && level.id >=1 && level.id < 10)) {
 		level.next();
 	}
-	
+
 	var l = level.id;
-	
+
 	for (var i = 0; i < charList.length; i++) {
 		charList[i].ai();
 	}
-	
+
 	if (l == 0) {
 	} else if (l >= 1 && l < 10) { // Level  & 21: downward scroll
-		
+
 		var speed = 4; // Player speed
-		
+
 		if (clunk) {
 			var clunkiness = 4;
 			speed *= timer % clunkiness == 0 ? clunkiness : 0;
 		}
-		
+
 		// S // Down // Y++
 		if (keyIsDown(DOWN_ARROW) || keyIsDown(83)) {
 			charMain.move(0, speed);
@@ -148,40 +148,40 @@ function draw() {
 		if (keyIsDown(LEFT_ARROW) || keyIsDown(65)) {
 			charMain.move(-speed, 0);
 		}
-		
+
 		lvlSpeed += (timer % 512 == 0) ? 1 : 0; // Every 512 ticks, increase the speed
 		speed = lvlSpeed; // Map/running speed
-		
+
 		// Move the background down as charMain stays in the same place
 		charMap.move(0, speed);
 		charMain.move(0, -speed);
-		
+
 		if (charMap.y + speed >= 0) { // If map is on bottom, jump up
 			charMap.gotoY(height - charMap.height);
 		}
-		
+
 		if (blowback > 0) { // Shoot backwards from barrel, decelerate
 			charMain.move(0, blowback);
 			blowback--;
 		}
-		
+
 		// Sense if charMain is trapped in a sprite or something
 		var needsBlowforth = charMain.getBottom() > height; // Initialize and sense if below canvas view
 		for (var i = 0; i < charList.length; i++) {
 			var c = charList[i];
-			
+
 			// Determine whether charMain is outside of the object
 			var toLeft  = charMain.getRight()  <= c.getLeft();
 			var toRight = charMain.getLeft()   >= c.getRight();
 			var above   = charMain.getBottom() <= c.getTop();
 			var below   = charMain.getTop()    >= c.getBottom();
-			
+
 			if (!(toLeft || toRight || above || below)) { // If it's inside, it needs help!
 				needsBlowforth = true;
 			}
-			
+
 		}
-		
+
 		if (needsBlowforth) { // If charMain us in danger,
 			charMain.y -= 16;   // jump up,
 			blowback = 0;       // and stop flying backwards
@@ -197,7 +197,7 @@ function draw() {
 				blowaside = (32 - (charMain.getCenterX() % 64) / 2);
 			}*/
 		}
-		
+
 		/*if (blowforth > 0) {
 			charMain.y -= blowforth;
 			blowforth--;
@@ -222,16 +222,16 @@ function draw() {
 				}
 			}
 		}*/
-		
+
 	} else {
-		
+
 		var speed = 4; // Player speed
-		
+
 		if (clunk) {
 			var clunkiness = 4;
 			speed *= timer % clunkiness == 0 ? clunkiness : 0;
 		}
-		
+
 		// A // Left // X--
 		if (keyIsDown(LEFT_ARROW) || keyIsDown(65)) {
 			charMain.move(-speed, 0);
@@ -261,9 +261,9 @@ function draw() {
 			}
 		}
 	}
-		
+
 	level.draw();
-	
+
 	// Display level sprites, if a game level is on
 	if (level.id > 0 && level.id < 10) {
 		charMap.display();
@@ -272,7 +272,7 @@ function draw() {
 		}
 		charMain.display();
 	}
-	
+
 	// Konami code
 	if (keyIsPressed) {
 		if (keyIsDown(konamiCode[konamiProgress])) {
@@ -287,7 +287,7 @@ function draw() {
 		konami();
 		konamiProgress = 0;
 	}
-	
+
 	timer++;
 	lvlProgress += lvlSpeed;
 	/*$("#c").html(lvlSpeed + ", " + lvlProgress);
@@ -295,7 +295,7 @@ function draw() {
 	for (var i = 0; i < charList.length; i++) {
 		$("#c").append(i + ": " + charList[i].y + ";&nbsp;&nbsp;&nbsp;&nbsp;");
 	}*/
-	
+
 	// Indicate controls in lvl1
 	if (timer % 32 < 16 && timer < 256 && level.id == 1) {
 		var font = "Ubuntu Mono";
@@ -309,7 +309,7 @@ function draw() {
 		fill(255);
 		text(wasd, width / 2, height - 32);
 	}
-	
+
 }
 
 function setMap(x, y, img) {
@@ -322,7 +322,7 @@ function setMap(x, y, img) {
 				charList[i].x += x;
 			}
 			charMain.x += x;
-		}	
+		}
 		if (this.getBottom() + y >= height && this.getTop() + y <= 0) {
 			this.y += y;
 			for (var i = 0; i < charList.length; i++) {

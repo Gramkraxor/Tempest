@@ -6,7 +6,7 @@ body {
 	margin: 0;
 	/*/font-family: "Ubuntu Mono", "Consolas", "Courier New", Monospace;/*/
 	font-family: "Ubuntu", "Trebuchet MS", "Arial", Sans-Serif;/**/
-	background: #081018 url("img/bg.png") no-repeat fixed center top;
+	background: #081018 url("assets/bg.png") no-repeat fixed center top;
 	/*background-size: calc(100vh * 16 / 9) 100vh;*/
 	/*background-size: 192vh 108vh;*/
 	background-size: cover;
