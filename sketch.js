@@ -12,7 +12,7 @@ let timer = 0;
 function konami() {
 	$("#page").append($("<audio/>")
 		.attr("preload", "auto")
-		.attr("src", "/tempest/assets/rickroll.mp3")
+		.attr("src", "/assets/rickroll.mp3")
 		.attr("autoplay", true)
 		.attr("id", "rickroll")
 	);
@@ -41,8 +41,8 @@ function setup() {
 		65
 	];
 
-	imgBgMenu = loadImage("/tempest/assets/bg-menu.png");
-	imgTitle  = loadImage("/tempest/assets/title.png");
+	imgBgMenu = loadImage("/assets/bg-menu.png");
+	imgTitle  = loadImage("/assets/title.png");
 }
 
 function draw() {
