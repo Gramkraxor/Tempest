@@ -1,2 +1,4 @@
-# Tempest One
-Great World Texts project, revamped.
+# Tempest 1
+
+The game that should have been.
+Coming soon.
